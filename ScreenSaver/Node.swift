@@ -60,11 +60,10 @@ class Node: UITextField {
         font = UIFont.monospacedDigitSystemFont(ofSize: Util.Constant.SIZE, weight: .semibold)
         textAlignment = .center
         
-        mutate()
+//        mutate()
     }
     
     deinit {
-        prev = nil
         print("node")
         print("node deinit")
     }

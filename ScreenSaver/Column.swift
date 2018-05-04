@@ -100,12 +100,12 @@ class Column: UIView {
     }
     
     private func cleanUp() {
-        
         for i in 0..<nodes.count {
+            nodes[i]!.removeFromSuperview()
             nodes[i] = nil
         }
         active = false
         fade_started = false
         nodes = []
-    }    
+    }
 }
