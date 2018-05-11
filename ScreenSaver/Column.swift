@@ -55,16 +55,17 @@ class Column: UIView {
     /// - Parameter iterator: Used to keep track of how many iterations the function has gone through
     private func animateRain(_ iterator: CGFloat = 0) {
         if Util.Constant.SIZE * iterator <= bounds.height - Util.Constant.SIZE * 2 {
-            delay(speed) {
-                let node: Node? = Node(on: true, value: -1, color: UIColor.green, prev: self.nodes[self.nodes.count - 1])
-                self.nodes[self.nodes.count - 1]!.changeColor()
-                self.nodes.append(node)
-                self.addSubview(node!)
-                self.animateRain(iterator + 1.0)
+            delay(speed) { [weak self] in
+                guard let strongSelf = self else { return }
+                let node: Node? = Node(on: true, value: -1, color: UIColor.green, prev: strongSelf.nodes[strongSelf.nodes.count - 1])
+                strongSelf.nodes[strongSelf.nodes.count - 1]!.changeColor()
+                strongSelf.nodes.append(node)
+                strongSelf.addSubview(node!)
+                strongSelf.animateRain(iterator + 1.0)
                 
-                if !self.fade_started && self.nodes.count > self.numOfRows / 2 {
-                    self.fade_started = true
-                    self.fade()
+                if !strongSelf.fade_started && strongSelf.nodes.count > strongSelf.numOfRows / 2 {
+                    strongSelf.fade_started = true
+                    strongSelf.fade()
                 }
             }
         }
@@ -85,18 +86,19 @@ class Column: UIView {
     ///
     /// - Parameter iterator: Used to keep track of how many iterations the function has gone through
     private func fade(_ iterator: Int = 0) {
-        delay(speed * 0.5) {
-            if let _ = self.nodes[self.nodes.count - 1] {
+        delay(speed * 0.5) { [weak self] in
+            guard let strongSelf = self else { return }
+            if let _ = strongSelf.nodes[strongSelf.nodes.count - 1] {
                 for i in 1..<4 {
-                    if self.nodes.count - 1 >= iterator + i {
-                        self.nodes[iterator + i]!.setAlpha(0.25 * CGFloat(i))
+                    if strongSelf.nodes.count - 1 >= iterator + i {
+                        strongSelf.nodes[iterator + i]!.setAlpha(0.25 * CGFloat(i))
                     }
                 }
-                self.nodes[iterator]!.removeFromSuperview()
-                self.nodes[iterator] = nil
-                self.fade(iterator + 1)
+                strongSelf.nodes[iterator]!.removeFromSuperview()
+                strongSelf.nodes[iterator] = nil
+                strongSelf.fade(iterator + 1)
             } else {
-                self.cleanUp()
+                strongSelf.cleanUp()
             }
         }
     }

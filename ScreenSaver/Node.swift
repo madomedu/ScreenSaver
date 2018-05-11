@@ -60,7 +60,7 @@ class Node: UITextField {
         font = UIFont.monospacedDigitSystemFont(ofSize: Util.Constant.SIZE, weight: .semibold)
         textAlignment = .center
         
-//        mutate()
+        mutate()
     }
     
     deinit {
@@ -99,11 +99,12 @@ class Node: UITextField {
     
     /// Changes a random node in the column to a random katakana character
     func mutate() {
-        delay(1) {
+        delay(1) { [weak self] in
+            guard let strongSelf = self else { return }
             if arc4random_uniform(10) == 0 {
-                self.changeKata()
+                strongSelf.changeKata()
             }
-            self.mutate()
+            strongSelf.mutate()
         }
     }
 }
