@@ -101,7 +101,7 @@ class Node: UITextField {
     func mutate() {
         delay(1) { [weak self] in
             guard let strongSelf = self else { return }
-            if arc4random_uniform(10) == 0 {
+            if arc4random_uniform(3) == 0 {
                 strongSelf.changeKata()
             }
             strongSelf.mutate()

@@ -12,7 +12,7 @@ import UIKit
 open class Util {
     
     struct Constant {
-        static let SIZE: CGFloat = 10
+        static let SIZE: CGFloat = 30
     }
     
     enum Speed: Double {
