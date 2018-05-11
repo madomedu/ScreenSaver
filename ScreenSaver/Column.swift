@@ -32,7 +32,7 @@ class Column: UIView {
     }
     
     deinit {
-        print("column")
+        print("column deinit")
     }
 
     /// Begin node rain
@@ -86,12 +86,14 @@ class Column: UIView {
     /// - Parameter iterator: Used to keep track of how many iterations the function has gone through
     private func fade(_ iterator: Int = 0) {
         delay(speed * 0.5) {
-            if !self.nodes[self.nodes.count - 1]!.isHidden {
-                for i in 0..<4 {
+            if let _ = self.nodes[self.nodes.count - 1] {
+                for i in 1..<4 {
                     if self.nodes.count - 1 >= iterator + i {
                         self.nodes[iterator + i]!.setAlpha(0.25 * CGFloat(i))
                     }
                 }
+                self.nodes[iterator]!.removeFromSuperview()
+                self.nodes[iterator] = nil
                 self.fade(iterator + 1)
             } else {
                 self.cleanUp()
@@ -99,11 +101,8 @@ class Column: UIView {
         }
     }
     
+    /// Sets the object to a safe state, ready to be reused
     private func cleanUp() {
-        for i in 0..<nodes.count {
-            nodes[i]!.removeFromSuperview()
-            nodes[i] = nil
-        }
         active = false
         fade_started = false
         nodes = []

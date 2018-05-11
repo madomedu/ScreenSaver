@@ -25,7 +25,7 @@ class Node: UITextField {
     }
     private var color: UIColor!
     
-    private var prev: Node?
+    private weak var prev: Node?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -64,7 +64,6 @@ class Node: UITextField {
     }
     
     deinit {
-        print("node")
         print("node deinit")
     }
     
