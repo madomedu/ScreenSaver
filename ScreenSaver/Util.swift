@@ -2,7 +2,7 @@
 //  Util.swift
 //  ScreenSaver
 //
-***REMOVED***
+//  Created by madomedu on 2018-04-30.
 //  Copyright © 2018 madomedu. All rights reserved.
 //
 
